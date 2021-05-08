@@ -1,0 +1,41 @@
+{
+    "labels" : [
+        "caption",
+        "current time and temperature",
+        "discussion topic",
+        "logo",
+        "program title",
+        "scrolling news",
+        "social network handle",
+        "speaker location",
+        "speaker name",
+        "speaker title",
+        "weather map"
+    ],
+    "anchors" : [
+        [
+            188,
+            25,
+            266,
+            54,
+            411,
+            23
+        ],
+        [
+            41,
+            30,
+            82,
+            82,
+            96,
+            22
+        ],
+        [
+            11,
+            32,
+            29,
+            42,
+            36,
+            14
+        ]
+    ]
+}
