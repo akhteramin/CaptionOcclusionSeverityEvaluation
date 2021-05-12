@@ -3,39 +3,42 @@
         "caption",
         "current time and temperature",
         "discussion topic",
+        "listener face",
         "logo",
         "program title",
         "scrolling news",
         "social network handle",
+        "speaker eyes",
         "speaker location",
+        "speaker mouth",
         "speaker name",
         "speaker title",
         "weather map"
     ],
     "anchors" : [
         [
-            188,
-            25,
-            266,
+            267,
             54,
-            411,
+            292,
+            40,
+            370,
             23
         ],
         [
-            41,
-            30,
-            82,
-            82,
-            96,
-            22
+            71,
+            94,
+            95,
+            22,
+            188,
+            25
         ],
         [
-            11,
-            32,
-            29,
+            24,
+            15,
+            30,
+            52,
             42,
-            36,
-            14
+            28
         ]
     ]
 }
