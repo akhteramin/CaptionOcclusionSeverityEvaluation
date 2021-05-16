@@ -32,7 +32,8 @@ def informationRegionRetrievalFromVideo():
 
     video_detector = CustomVideoObjectDetection()
     video_detector.setModelTypeAsYOLOv3()
-    video_detector.setModelPath("Dataset_V2/models/detection_model-ex-065--loss-0013.210.h5")
+    video_detector.setModelPath("Dataset_V2/models/detection_model-ex-070--loss-0015.701.h5")
+
     video_detector.setJsonPath("Dataset_V2/json/detection_config.json")
     video_detector.loadModel()
 
