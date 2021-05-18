@@ -26,26 +26,26 @@ def box_area(boxA, boxB):
     boxAArea = abs((boxA[2] - boxA[0]) * (boxA[3] - boxA[1]))
     boxBArea = abs((boxB[2] - boxB[0]) * (boxB[3] - boxB[1]))
 
-    # compute the intersection over union by taking the intersection
-    # area and dividing it by the sum of prediction + ground-truth
-    # areas - the interesection area
-    iou = interArea / float(boxAArea + boxBArea - interArea)
 
+    # areas - the interesection area
+    # iou = interArea / float(boxAArea + boxBArea - interArea)
+    iou = interArea/ float(boxBArea)
     # return the intersection over union value
     return iou
 
 def informationRegionRetrievalFromImage():
     print(args.get("img_name"))
-    Objects = []
-
+    # Objects = []
+    # model configuration
     detector = CustomObjectDetection()
     detector.setModelTypeAsYOLOv3()
     detector.setModelPath("Dataset_V2/models/detection_model-ex-070--loss-0015.701.h5")
     detector.setJsonPath("Dataset_V2/json/detection_config.json")
     detector.loadModel()
+    # detect objects from an image without caption on the screen
     detections = detector.detectObjectsFromImage(input_image=args.get("img_without_caption"), output_image_path="Output_Frames/"+args.get("img_without_caption"))
 
-
+    # detect caption from an image with caption on the screen
     caption_detections = detector.detectObjectsFromImage(input_image=args.get("img_with_caption"),
                                                  output_image_path="Output_Frames/" + args.get("img_with_caption"))
 
@@ -53,17 +53,19 @@ def informationRegionRetrievalFromImage():
         if detection["name"] == "caption":
             print(detection["name"], " : ", detection["percentage_probability"], " : ", detection["box_points"])
             print(type(detection["box_points"]))
+            #save boxpoint for caption
             Caption = detection["box_points"]
-    result_file = open("result.text", "w+")
+
+    result_file = open("result.txt", "w+")
     for detection in detections:
         if detection["percentage_probability"]>=90:
 
             print(detection["name"], " : ", detection["percentage_probability"], " : ", detection["box_points"])
-            Objects.append(detection["box_points"])
+            # Objects.append(detection["box_points"])
 
             print(box_area(Caption, detection["box_points"]))
             area = box_area(Caption, detection["box_points"])
-            result_file.write(detection["name"] + "Occlusion Area with caption: " + area)
+            result_file.write(detection["name"] + "- Occlusion Area with Caption: " + str(area)+"\n")
 
 
 
