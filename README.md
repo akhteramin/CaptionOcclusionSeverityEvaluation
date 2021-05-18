@@ -9,24 +9,31 @@ Using transfer learning approach, we have trained `YoloV3` model so that this mo
 
 Here is the step-by-step configuration instructions:
 1. Setup a Python Virtaul Environment which will support Python 3.6.
+
 ``python3 -m venv metric-env``
 2. Activate virtual environment.
+
 ``source metric-env/bin/activate``
 3. Install required libraries using `requirements.txt`.
+
 ``pip install -r requirements.txt``
 4. Download the pretrained YoloV3 model.
+ 
  ``wget https://github.com/OlafenwaMoses/ImageAI/releases/download/essential-v4/pretrained-yolov3.h5``
 5. To initiate the transfer learning, run this command:
+
 ``python ObjectDetectionTrainer.py``
 Current hyperparameters are: batch_size=4, num_experiments=100. The validation loss in each epochs can be observed in verbose.
 The model will be saved in `Models` file of `Dataset_V2` directory.
 6. At the end of the training, to evaluate the model run this command below:
+
 ``python ObjectDetectionModelEvaluator.py``
 7. Now using the best model architecture, we will evaluate a frame of a captioned video. Here are the description of our proposed approach to measure occlusion:
 The function expects two image frames from actual video sources. One with captions and other without captions.
 Analyzing the frame without caption, our metric will identify the region for different information regions. In region identification, primarily we will consider 0.9 as lower bound probability for each content region.
 Analyzing the frame with caption, our metric will identify the coordinates of the caption.
 Now, this function will measure the occlusion percentage for each region with the caption region. 
+
 ``python informationRegionRetrieval.py --img_with_caption 1_caption.png --img_without_caption 1_no_caption.png``
 
 
