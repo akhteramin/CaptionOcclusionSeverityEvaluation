@@ -36,5 +36,8 @@ Analyzing the frame with caption, our metric will identify the coordinates of th
 Now, this function will measure the occlusion percentage for each region with the caption region. 
 
    ```python InformationRegionRetrieval.py --img_with_caption 1_caption.png --img_without_caption 1_no_caption.png```
+   
+8. The project structure has been modified to effectively analyze videos. We extract frames from each of the videos and stored them in `Output_Frames` folder. Subsequently, using the pretrained object detection model, we analyze the occlusion percentage and generate result in `Results` folder. To execute this pipeline, first we need to store two(one captioned, one uncaptioned) video in `Test_Videos` folder. Then run the command shown below:
+    ```python FrameFromVideos.py --video_c captioned.mov --video_nc uncaptioned.mov```
 
 

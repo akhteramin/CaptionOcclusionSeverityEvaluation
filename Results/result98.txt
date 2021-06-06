@@ -1,0 +1,7 @@
+discussion topic- Occlusion Area with Caption: 0.7114937925510613
+listener face- Occlusion Area with Caption: 0
+speaker mouth- Occlusion Area with Caption: 0
+speaker mouth- Occlusion Area with Caption: 0
+speaker mouth- Occlusion Area with Caption: 0
+listener face- Occlusion Area with Caption: 0.3977272727272727
+logo- Occlusion Area with Caption: 0.5051546391752577

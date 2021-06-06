@@ -3,11 +3,11 @@ from imageai.Detection.Custom import CustomObjectDetection
 from imageai.Detection.Custom import CustomVideoObjectDetection
 import os
 
-ap = argparse.ArgumentParser()
-ap.add_argument("-img_with_caption", "--img_with_caption", required=True, help="image name")
-ap.add_argument("-img_without_caption", "--img_without_caption", required=True, help="image name")
-
-args = vars(ap.parse_args())
+# ap = argparse.ArgumentParser()
+# ap.add_argument("-img_with_caption", "--img_with_caption", required=False, help="image name")
+# ap.add_argument("-img_without_caption", "--img_without_caption", required=False, help="image name")
+#
+# args = vars(ap.parse_args())
 
 # Lip motion analysis to detect currnt speaker:
 # https://www.researchgate.net/publication/221111889_Visual_Speech_Recognition_with_Loosely_Synchronized_Feature_Streams
@@ -33,8 +33,17 @@ def box_area(boxA, boxB):
     # return the intersection over union value
     return iou
 
-def informationRegionRetrievalFromImage():
-    print(args.get("img_name"))
+def informationRegionRetrievalFromImage(captioned_image='', uncaptioned_image='', Id=0):
+    # print(args.get("img_name"))
+    print(captioned_image, uncaptioned_image)
+    captioned_input_image = 'captioned.jpg'
+    uncaptioned_input_image = 'uncaptioned.jpg'
+    if captioned_image!='' and uncaptioned_image!='':
+        captioned_input_image = captioned_image
+        uncaptioned_input_image = uncaptioned_image
+    # else:
+    #     captioned_input_image = args.get("img_with_caption")
+    #     uncaptioned_input_image = args.get("img_without_caption")
     # Objects = []
     # model configuration
     detector = CustomObjectDetection()
@@ -42,12 +51,13 @@ def informationRegionRetrievalFromImage():
     detector.setModelPath("Dataset_V2/models/detection_model-ex-070--loss-0015.701.h5")
     detector.setJsonPath("Dataset_V2/json/detection_config.json")
     detector.loadModel()
-    # detect objects from an image without caption on the screen
-    detections = detector.detectObjectsFromImage(input_image=args.get("img_without_caption"), output_image_path="Output_Frames/"+args.get("img_without_caption"))
+    # detect information region from an image without caption on the screen
+    detections = detector.detectObjectsFromImage(input_image=os.path.join("Test_Images",uncaptioned_input_image),
+                                                 output_image_path=os.path.join("Output_Frames",uncaptioned_input_image))
 
     # detect caption from an image with caption on the screen
-    caption_detections = detector.detectObjectsFromImage(input_image=args.get("img_with_caption"),
-                                                 output_image_path="Output_Frames/" + args.get("img_with_caption"))
+    caption_detections = detector.detectObjectsFromImage(input_image=os.path.join("Test_Images",captioned_input_image),
+                                                 output_image_path=os.path.join("Output_Frames", captioned_input_image))
 
     for detection in caption_detections:
         if detection["name"] == "caption":
@@ -55,8 +65,9 @@ def informationRegionRetrievalFromImage():
             print(type(detection["box_points"]))
             #save boxpoint for caption
             Caption = detection["box_points"]
+            print(box_area(Caption, detection["box_points"]))
 
-    result_file = open("result.txt", "w+")
+    result_file = open(os.path.join("Results", "result%d.txt" % Id), "w+")
     for detection in detections:
         if detection["percentage_probability"]>=90:
 
@@ -69,4 +80,4 @@ def informationRegionRetrievalFromImage():
 
 
 
-informationRegionRetrievalFromImage()
+# informationRegionRetrievalFromImage()
